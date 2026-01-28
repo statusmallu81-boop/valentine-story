@@ -3,19 +3,19 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>For You ❤️</title>
+<title>For Nachoo ❤️</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Poppins&display=swap" rel="stylesheet">
 
 <style>
 body{
   margin:0;
-  height:100vh;
+  font-family:'Poppins',sans-serif;
   background:linear-gradient(135deg,#ff9a9e,#fad0c4);
+  height:100vh;
   display:flex;
   justify-content:center;
   align-items:center;
-  font-family:'Poppins',sans-serif;
   overflow:hidden;
   text-align:center;
 }
@@ -25,15 +25,15 @@ body{
   backdrop-filter:blur(10px);
   padding:26px;
   border-radius:25px;
-  width:88%;
-  max-width:360px;
+  width:90%;
+  max-width:370px;
   box-shadow:0 0 30px rgba(255,80,120,.45);
   animation:fade 1s ease;
 }
 
 h1{
   font-family:'Great Vibes',cursive;
-  font-size:38px;
+  font-size:36px;
   color:white;
 }
 
@@ -61,34 +61,34 @@ button{
 }
 
 input{
-  padding:12px;
-  border-radius:25px;
+  width:70px;
+  padding:10px;
+  border-radius:15px;
   border:none;
-  width:80%;
   text-align:center;
   font-size:16px;
+  margin:5px;
+}
+
+.heartChoice span{
+  font-size:45px;
+  margin:15px;
+  cursor:pointer;
+  transition:0.3s;
+}
+
+.heartChoice span:hover{
+  transform:scale(1.2);
+}
+
+.gift{
+  font-size:85px;
+  transition:0.6s;
 }
 
 @keyframes fade{
   from{opacity:0;transform:scale(.9)}
   to{opacity:1;transform:scale(1)}
-}
-
-/* LOVE RAIN */
-.heart{
-  position:fixed;
-  top:-10%;
-  font-size:20px;
-  animation:fall 7s linear infinite;
-}
-@keyframes fall{
-  to{transform:translateY(120vh)}
-}
-
-/* GIFT */
-.gift{
-  font-size:80px;
-  transition:0.6s;
 }
 </style>
 </head>
@@ -103,118 +103,116 @@ input{
 <div class="card" id="p1">
   <h1>Hey Nachoo 💕</h1>
   <p>I made something special for you 🤍</p>
-  <button onclick="go2()">Continue 💗</button>
+  <button onclick="go(1)">Continue 💗</button>
 </div>
 
-<!-- PAGE 2 -->
+<!-- PAGE 2 PASSWORD -->
 <div class="card" id="p2" style="display:none;">
   <h1>One little thing…</h1>
   <p>You have a special name for me 🤍</p>
-  <input id="pass" placeholder="Type it here">
+  <input id="pass" placeholder="Type here">
   <br>
   <button onclick="unlock()">Unlock 💖</button>
 </div>
 
-<!-- STORY -->
-<div class="card" id="story" style="display:none;">
-  <h1 id="title"></h1>
+<!-- PAGE 3 PHOTO 1 -->
+<div class="card" id="p3" style="display:none;">
+  <h1>My Everything 🤍</h1>
+  <img src="photo1.jpg">
+  <p>You’re not just part of my life…<br>you are my everything 🤍</p>
+  <button onclick="go(3)">Next ✨</button>
+</div>
 
-  <img id="photo">
+<!-- PAGE 4 DATE -->
+<div class="card" id="p4" style="display:none;">
+  <h1>A Sweet Memory 💗</h1>
+  <p>Do you remember the day I proposed to you?</p>
 
-  <p id="text"></p>
+  <input id="day" placeholder="DD">
+  <input id="month" placeholder="MM">
+  <input id="year" placeholder="YYYY">
 
-  <!-- FINAL GIFT AREA -->
-  <div id="giftArea" style="display:none;">
-    <div id="giftBox" class="gift">🎁</div>
+  <br>
+  <button onclick="checkDate()">Continue 💞</button>
+</div>
 
-    <button onclick="openGift()">I Love You Nachoo 💖</button>
+<!-- PAGE 5 PHOTO 2 -->
+<div class="card" id="p5" style="display:none;">
+  <h1>From That Day 💕</h1>
+  <img src="photo2.jpg">
+  <p>From that day till now,<br>my heart keeps choosing you 💗</p>
+  <button onclick="go(5)">Next ✨</button>
+</div>
 
-    <p id="giftText" style="display:none;margin-top:20px;font-size:18px;">
-      Go and check your bag 💝
-    </p>
+<!-- PAGE 6 HEART CHOICE -->
+<div class="card" id="p6" style="display:none;">
+  <h1>One Heart Is Mine 🤍</h1>
+  <p>Can you feel it?</p>
+
+  <div class="heartChoice">
+    <span onclick="wrong()">🤍</span>
+    <span onclick="correct()">❤️</span>
+    <span onclick="wrong()">💗</span>
   </div>
+</div>
 
-  <button id="nextBtn" onclick="next()">Next ✨</button>
+<!-- PAGE 7 GIFT -->
+<div class="card" id="p7" style="display:none;">
+  <h1>One Last Thing 🎁</h1>
+
+  <div id="gift" class="gift">🎁</div>
+
+  <button onclick="openGift()">I Love You Nachoo 💖</button>
+
+  <p id="giftText" style="display:none;margin-top:20px;">
+    Go and check your bag 💝
+  </p>
 </div>
 
 <script>
-const password="Ajucha";
-
-const slides=[
- {t:"My Favorite Smile 💕",p:"photo1.jpg",m:"Every time you smile, my heart feels calm 🤍"},
- {t:"Every Moment With You ✨",p:"photo2.jpg",m:"Even simple moments become beautiful with you 💗"},
- {t:"My World ❤️",p:"photo3.jpg",m:"No matter what happens… I’ll always choose you 🤍"},
- {t:"One Last Thing 🎁",p:"",m:""}
-];
-
-let i=0;
-
-function go2(){
- document.getElementById("p1").style.display="none";
- document.getElementById("p2").style.display="block";
+function go(n){
+  document.getElementById("p"+n).style.display="none";
+  document.getElementById("p"+(n+1)).style.display="block";
 }
 
 function unlock(){
- if(document.getElementById("pass").value===password){
-   document.getElementById("p2").style.display="none";
-   document.getElementById("story").style.display="block";
-   document.getElementById("music").volume=0.5;
-   document.getElementById("music").play();
-   show();
- }else{
-   alert("Say it softly 🤍");
- }
+  if(document.getElementById("pass").value==="Ajucha"){
+    document.getElementById("p2").style.display="none";
+    document.getElementById("p3").style.display="block";
+    document.getElementById("music").volume=0.5;
+    document.getElementById("music").play();
+  } else {
+    alert("Say it softly 🤍");
+  }
 }
 
-function typeText(el,text){
- el.innerHTML="";
- let n=0;
- let timer=setInterval(()=>{
-   el.innerHTML+=text.charAt(n);
-   n++;
-   if(n>=text.length) clearInterval(timer);
- },40);
+function checkDate(){
+  if(
+    document.getElementById("day").value=="11" &&
+    document.getElementById("month").value=="01" &&
+    document.getElementById("year").value=="2026"
+  ){
+    go(4);
+  } else {
+    alert("Try again… your heart knows it 🤍");
+  }
 }
 
-function show(){
- document.getElementById("title").innerHTML=slides[i].t;
-
- if(slides[i].p!==""){
-   document.getElementById("photo").style.display="block";
-   document.getElementById("photo").src=slides[i].p;
-   document.getElementById("giftArea").style.display="none";
-   document.getElementById("nextBtn").style.display="inline-block";
- }else{
-   document.getElementById("photo").style.display="none";
-   document.getElementById("giftArea").style.display="block";
-   document.getElementById("nextBtn").style.display="none";
- }
-
- typeText(document.getElementById("text"), slides[i].m);
+function wrong(){
+  alert("Not this one… feel again 🤍");
 }
 
-function next(){
- i++;
- if(i<slides.length) show();
+function correct(){
+  go(6);
 }
 
 function openGift(){
- document.getElementById("giftBox").style.transform="scale(1.3) rotate(10deg)";
- document.getElementById("giftBox").innerHTML="🎀";
- setTimeout(()=>{
-   document.getElementById("giftText").style.display="block";
- },700);
+  document.getElementById("gift").innerHTML="🎀";
+  document.getElementById("gift").style.transform="scale(1.3) rotate(10deg)";
+  setTimeout(()=>{
+    document.getElementById("giftText").style.display="block";
+  },700);
 }
-
-/* ❤️ LOVE RAIN */
-setInterval(()=>{
- let h=document.createElement("div");
- h.className="heart";
- h.innerHTML="❤️";
- h.style.left=Math.random()*100+"vw";
- document.body.appendChild(h);
- setTimeout(()=>h.remove(),7000);
-},400);
 </script>
 
 </body>

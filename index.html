@@ -70,7 +70,7 @@ input{
   margin:5px;
 }
 
-/* LOVE RAIN */
+/* White love rain */
 .love{
   position:fixed;
   top:-10%;
@@ -116,7 +116,7 @@ input{
 <div class="card" id="p1">
   <h1>Hey Nachoo 💕</h1>
   <p>I made something special for you 🤍</p>
-  <button onclick="go(1)">Continue 💗</button>
+  <button onclick="show('p2')">Continue 💗</button>
 </div>
 
 <!-- PAGE 2 PASSWORD -->
@@ -133,7 +133,7 @@ input{
   <h1>My Everything 🤍</h1>
   <img src="photo1.jpg">
   <p>Every time you smile, my heart feels calm 🤍</p>
-  <button onclick="go(3)">Next ✨</button>
+  <button onclick="show('p4')">Next ✨</button>
 </div>
 
 <!-- PAGE 4 DATE -->
@@ -154,7 +154,7 @@ input{
   <h1>From That Day 💕</h1>
   <img src="photo2.jpg">
   <p>Even simple moments become beautiful with you 🩷</p>
-  <button onclick="goCustom('p5','p6b')">Next ✨</button>
+  <button onclick="show('p6b')">Next ✨</button>
 </div>
 
 <!-- PAGE 6 PHOTO 3 -->
@@ -162,7 +162,7 @@ input{
   <h1>Always You 🤍</h1>
   <img src="photo3.jpg">
   <p>With me, I hope you always feel safe 🤍</p>
-  <button onclick="goCustom('p6b','p6')">Next ✨</button>
+  <button onclick="show('p6')">Next ✨</button>
 </div>
 
 <!-- PAGE 7 HEART -->
@@ -173,7 +173,7 @@ input{
   <div class="heartChoice">
     <span onclick="wrong()">🤍</span>
     <span onclick="correct()">🫀</span>
-    <span onclick="wrong()">🩷</span>
+    <span onclick="wrong()">🤍</span>
   </div>
 </div>
 
@@ -191,20 +191,16 @@ input{
 </div>
 
 <script>
-function go(n){
-  document.getElementById("p"+n).style.display="none";
-  document.getElementById("p"+(n+1)).style.display="block";
-}
-
-function goCustom(from,to){
-  document.getElementById(from).style.display="none";
-  document.getElementById(to).style.display="block";
+function show(id){
+  document.querySelectorAll(".card").forEach(c=>{
+    c.style.display="none";
+  });
+  document.getElementById(id).style.display="block";
 }
 
 function unlock(){
   if(document.getElementById("pass").value==="Ajucha"){
-    document.getElementById("p2").style.display="none";
-    document.getElementById("p3").style.display="block";
+    show("p3");
     document.getElementById("music").volume=0.5;
     document.getElementById("music").play();
   } else {
@@ -218,7 +214,7 @@ function checkDate(){
     document.getElementById("month").value=="01" &&
     document.getElementById("year").value=="2026"
   ){
-    go(4);
+    show("p5");
   } else {
     alert("Try again… your heart knows it 🤍");
   }
@@ -229,7 +225,7 @@ function wrong(){
 }
 
 function correct(){
-  go(6);
+  show("p7");
 }
 
 function openGift(){
@@ -240,15 +236,15 @@ function openGift(){
   },700);
 }
 
-/* LOVE RAIN */
+/* white love rain */
 setInterval(()=>{
   const l=document.createElement("div");
   l.className="love";
-  l.innerHTML=Math.random()>0.5?"🩷":"🤍";
+  l.innerHTML="🤍";
   l.style.left=Math.random()*100+"vw";
   document.body.appendChild(l);
   setTimeout(()=>l.remove(),7000);
-},450);
+},700);
 </script>
 
 </body>

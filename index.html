@@ -70,6 +70,19 @@ input{
   margin:5px;
 }
 
+/* love rain */
+.love{
+  position:fixed;
+  top:-10%;
+  font-size:22px;
+  animation:fall 7s linear infinite;
+  pointer-events:none;
+}
+
+@keyframes fall{
+  to{transform:translateY(120vh);}
+}
+
 .heartChoice span{
   font-size:45px;
   margin:15px;
@@ -119,7 +132,7 @@ input{
 <div class="card" id="p3" style="display:none;">
   <h1>My Everything 🤍</h1>
   <img src="photo1.jpg">
-  <p>You’re not just part of my life…<br>you are my everything 🤍</p>
+  <p>Every time you smile, my heart feels calm 🤍</p>
   <button onclick="go(3)">Next ✨</button>
 </div>
 
@@ -140,23 +153,31 @@ input{
 <div class="card" id="p5" style="display:none;">
   <h1>From That Day 💕</h1>
   <img src="photo2.jpg">
-  <p>From that day till now,<br>my heart keeps choosing you 💗</p>
+  <p>Even simple moments become beautiful with you 🩷</p>
   <button onclick="go(5)">Next ✨</button>
 </div>
 
-<!-- PAGE 6 HEART CHOICE -->
+<!-- PAGE 6 PHOTO 3 -->
+<div class="card" id="p6b" style="display:none;">
+  <h1>Always You 🤍</h1>
+  <img src="photo3.jpg">
+  <p>With me, I hope you always feel safe 🤍</p>
+  <button onclick="goCustom('p6b','p6')">Next ✨</button>
+</div>
+
+<!-- PAGE 7 HEART -->
 <div class="card" id="p6" style="display:none;">
   <h1>One Heart Is Mine 🤍</h1>
   <p>Can you feel it?</p>
 
   <div class="heartChoice">
     <span onclick="wrong()">🤍</span>
-    <span onclick="correct()">❤️</span>
-    <span onclick="wrong()">💗</span>
+    <span onclick="correct()">🫀</span>
+    <span onclick="wrong()">🩷</span>
   </div>
 </div>
 
-<!-- PAGE 7 GIFT -->
+<!-- PAGE 8 GIFT -->
 <div class="card" id="p7" style="display:none;">
   <h1>One Last Thing 🎁</h1>
 
@@ -173,6 +194,11 @@ input{
 function go(n){
   document.getElementById("p"+n).style.display="none";
   document.getElementById("p"+(n+1)).style.display="block";
+}
+
+function goCustom(from,to){
+  document.getElementById(from).style.display="none";
+  document.getElementById(to).style.display="block";
 }
 
 function unlock(){
@@ -213,6 +239,16 @@ function openGift(){
     document.getElementById("giftText").style.display="block";
   },700);
 }
+
+/* love rain */
+setInterval(()=>{
+  const l=document.createElement("div");
+  l.className="love";
+  l.innerHTML=Math.random()>0.5?"🩷":"🤍";
+  l.style.left=Math.random()*100+"vw";
+  document.body.appendChild(l);
+  setTimeout(()=>l.remove(),7000);
+},450);
 </script>
 
 </body>

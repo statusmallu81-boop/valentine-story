@@ -22,7 +22,7 @@ body{
 
 .card{
   background:rgba(255,255,255,.25);
-  backdrop-filter:blur(10px);
+  backdrop-filter:blur(12px);
   padding:26px;
   border-radius:25px;
   width:90%;
@@ -58,37 +58,32 @@ button{
   background:#ff4d6d;
   color:white;
   font-size:16px;
+  cursor:pointer;
 }
 
 input{
   padding:12px;
-  border-radius:20px;
+  border-radius:25px;
   border:none;
+  width:70%;
   text-align:center;
   font-size:16px;
-  width:80%;
 }
 
 .heartChoice span{
   font-size:45px;
   margin:15px;
   cursor:pointer;
+  transition:.3s;
+}
+
+.heartChoice span:hover{
+  transform:scale(1.3);
 }
 
 .gift{
   font-size:90px;
-  margin-top:15px;
-}
-
-.gift.open{
-  animation:openGift 0.9s ease forwards;
-}
-
-@keyframes openGift{
-  0%{transform:scale(1)}
-  40%{transform:scale(1.2) rotate(5deg)}
-  70%{transform:scale(.9) rotate(-5deg)}
-  100%{transform:scale(1.3)}
+  transition:.8s;
 }
 
 @keyframes fade{
@@ -97,7 +92,7 @@ input{
 }
 
 /* LOVE RAIN */
-.love{
+.heart{
   position:fixed;
   top:-10%;
   font-size:22px;
@@ -127,7 +122,7 @@ input{
 <div class="card" id="p2" style="display:none;">
   <h1>One little thing…</h1>
   <p>You have a special name for me 🤍</p>
-  <input id="pass" type="password" placeholder="Type here">
+  <input type="password" id="pass" placeholder="Type softly 🤍">
   <br>
   <button onclick="unlock()">Unlock ✨</button>
 </div>
@@ -143,7 +138,7 @@ input{
 <!-- DATE -->
 <div class="card" id="p4" style="display:none;">
   <h1>A Sweet Memory 💗</h1>
-  <p>Do you remember the day I proposed to you?</p>
+  <p>Do you remember the day I proposed?</p>
 
   <input id="day" placeholder="DD">
   <input id="month" placeholder="MM">
@@ -161,16 +156,8 @@ input{
   <button onclick="go(5)">Next ✨</button>
 </div>
 
-<!-- PHOTO 3 -->
-<div class="card" id="p6" style="display:none;">
-  <h1>Always Safe 🤍</h1>
-  <img src="photo3.jpg">
-  <p>With me, I hope you always feel safe 🤍</p>
-  <button onclick="go(6)">Next ✨</button>
-</div>
-
 <!-- HEART CHOICE -->
-<div class="card" id="p7" style="display:none;">
+<div class="card" id="p6" style="display:none;">
   <h1>One Heart Is Mine 🤍</h1>
   <p>Can you feel it?</p>
 
@@ -181,17 +168,39 @@ input{
   </div>
 </div>
 
-<!-- GIFT -->
+<!-- PHOTO 3 -->
+<div class="card" id="p7" style="display:none;">
+  <h1>Forever 🤍</h1>
+  <img src="photo3.jpg">
+  <p>You are mine forever… and always 🤍</p>
+  <button onclick="go(7)">Next ✨</button>
+</div>
+
+<!-- LOVE QUESTION -->
 <div class="card" id="p8" style="display:none;">
+  <h1>One small question 🤍</h1>
+  <p>Do you love me? 🩷</p>
+
+  <button onclick="loveYes()">I love you Ajuchaa 💗</button>
+  <br>
+  <button onclick="go(8)" style="background:#ff7b9c;">Next ➡️</button>
+
+  <p id="loveReply" style="display:none;font-size:18px;margin-top:15px;">
+    I love you too Nachooo 🩷
+  </p>
+</div>
+
+<!-- GIFT -->
+<div class="card" id="p9" style="display:none;">
   <h1>One Last Thing 🎁</h1>
 
-  <div id="giftBox" class="gift">🎁</div>
+  <div id="gift" class="gift">🎁</div>
 
-  <button onclick="openGift()">I Love You Nachoo 💖</button>
+  <button onclick="openGift()">Open 💖</button>
 
-  <div id="giftText" style="display:none;margin-top:20px;color:white;font-size:17px;">
-    💝 Go and check your bag 💝
-  </div>
+  <p id="giftText" style="display:none;font-size:18px;margin-top:20px;">
+    Go and check your bag 💝
+  </p>
 </div>
 
 <script>
@@ -204,7 +213,7 @@ function unlock(){
   if(document.getElementById("pass").value==="Ajucha"){
     document.getElementById("p2").style.display="none";
     document.getElementById("p3").style.display="block";
-    document.getElementById("music").volume=0.5;
+    document.getElementById("music").volume=0.6;
     document.getElementById("music").play();
   } else {
     alert("Say it softly 🤍");
@@ -219,23 +228,38 @@ function checkDate(){
   ){
     go(4);
   } else {
-    alert("Your heart knows the date 🤍");
+    alert("Your heart remembers 🤍");
   }
 }
 
 function wrong(){
-  alert("Not this one… feel again 🤍");
+  alert("Feel again 🤍");
 }
 
 function correct(){
-  go(7);
+  go(6);
+}
+
+function loveYes(){
+  document.getElementById("loveReply").style.display="block";
+  setTimeout(()=>{ go(8); },1500);
 }
 
 function openGift(){
-  const gift=document.getElementById("giftBox");
-  gift.innerHTML="🎀";
-  gift.classList.add("open");
+  const music=document.getElementById("music");
+  let v=music.volume;
 
+  let fade=setInterval(()=>{
+    v-=0.05;
+    if(v<=0){
+      clearInterval(fade);
+      music.pause();
+    }
+    music.volume=v;
+  },120);
+
+  document.getElementById("gift").innerHTML="🎀";
+  document.getElementById("gift").style.transform="scale(1.3) rotate(10deg)";
   setTimeout(()=>{
     document.getElementById("giftText").style.display="block";
   },700);
@@ -243,13 +267,13 @@ function openGift(){
 
 /* LOVE RAIN */
 setInterval(()=>{
-  let h=document.createElement("div");
-  h.className="love";
-  h.innerHTML="🤍";
+  const h=document.createElement("div");
+  h.className="heart";
+  h.innerHTML="🩷";
   h.style.left=Math.random()*100+"vw";
   document.body.appendChild(h);
   setTimeout(()=>h.remove(),8000);
-},700);
+},600);
 </script>
 
 </body>

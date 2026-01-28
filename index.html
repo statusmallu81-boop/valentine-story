@@ -61,47 +61,51 @@ button{
 }
 
 input{
-  width:70px;
-  padding:10px;
-  border-radius:15px;
+  padding:12px;
+  border-radius:20px;
   border:none;
   text-align:center;
   font-size:16px;
-  margin:5px;
-}
-
-/* White love rain */
-.love{
-  position:fixed;
-  top:-10%;
-  font-size:22px;
-  animation:fall 7s linear infinite;
-  pointer-events:none;
-}
-
-@keyframes fall{
-  to{transform:translateY(120vh);}
+  width:80%;
 }
 
 .heartChoice span{
   font-size:45px;
   margin:15px;
   cursor:pointer;
-  transition:0.3s;
-}
-
-.heartChoice span:hover{
-  transform:scale(1.2);
 }
 
 .gift{
-  font-size:85px;
-  transition:0.6s;
+  font-size:90px;
+  margin-top:15px;
+}
+
+.gift.open{
+  animation:openGift 0.9s ease forwards;
+}
+
+@keyframes openGift{
+  0%{transform:scale(1)}
+  40%{transform:scale(1.2) rotate(5deg)}
+  70%{transform:scale(.9) rotate(-5deg)}
+  100%{transform:scale(1.3)}
 }
 
 @keyframes fade{
   from{opacity:0;transform:scale(.9)}
   to{opacity:1;transform:scale(1)}
+}
+
+/* LOVE RAIN */
+.love{
+  position:fixed;
+  top:-10%;
+  font-size:22px;
+  animation:fall 8s linear infinite;
+}
+
+@keyframes fall{
+  to{transform:translateY(120vh)}
 }
 </style>
 </head>
@@ -116,27 +120,27 @@ input{
 <div class="card" id="p1">
   <h1>Hey Nachoo 💕</h1>
   <p>I made something special for you 🤍</p>
-  <button onclick="show('p2')">Continue 💗</button>
+  <button onclick="go(1)">Continue 💗</button>
 </div>
 
 <!-- PAGE 2 PASSWORD -->
 <div class="card" id="p2" style="display:none;">
   <h1>One little thing…</h1>
   <p>You have a special name for me 🤍</p>
-  <input id="pass" placeholder="Type here">
+  <input id="pass" type="password" placeholder="Type here">
   <br>
-  <button onclick="unlock()">Unlock 💖</button>
+  <button onclick="unlock()">Unlock ✨</button>
 </div>
 
-<!-- PAGE 3 PHOTO 1 -->
+<!-- PHOTO 1 -->
 <div class="card" id="p3" style="display:none;">
-  <h1>My Everything 🤍</h1>
+  <h1>My Favorite Smile 🤍</h1>
   <img src="photo1.jpg">
   <p>Every time you smile, my heart feels calm 🤍</p>
-  <button onclick="show('p4')">Next ✨</button>
+  <button onclick="go(3)">Next ✨</button>
 </div>
 
-<!-- PAGE 4 DATE -->
+<!-- DATE -->
 <div class="card" id="p4" style="display:none;">
   <h1>A Sweet Memory 💗</h1>
   <p>Do you remember the day I proposed to you?</p>
@@ -149,58 +153,57 @@ input{
   <button onclick="checkDate()">Continue 💞</button>
 </div>
 
-<!-- PAGE 5 PHOTO 2 -->
+<!-- PHOTO 2 -->
 <div class="card" id="p5" style="display:none;">
-  <h1>From That Day 💕</h1>
+  <h1>Every Moment ✨</h1>
   <img src="photo2.jpg">
-  <p>Even simple moments become beautiful with you 🩷</p>
-  <button onclick="show('p6b')">Next ✨</button>
+  <p>Even simple moments become beautiful with you 🤍</p>
+  <button onclick="go(5)">Next ✨</button>
 </div>
 
-<!-- PAGE 6 PHOTO 3 -->
-<div class="card" id="p6b" style="display:none;">
-  <h1>Always You 🤍</h1>
+<!-- PHOTO 3 -->
+<div class="card" id="p6" style="display:none;">
+  <h1>Always Safe 🤍</h1>
   <img src="photo3.jpg">
   <p>With me, I hope you always feel safe 🤍</p>
-  <button onclick="show('p6')">Next ✨</button>
+  <button onclick="go(6)">Next ✨</button>
 </div>
 
-<!-- PAGE 7 HEART -->
-<div class="card" id="p6" style="display:none;">
+<!-- HEART CHOICE -->
+<div class="card" id="p7" style="display:none;">
   <h1>One Heart Is Mine 🤍</h1>
   <p>Can you feel it?</p>
 
   <div class="heartChoice">
-    <span onclick="wrong()">🤍</span>
+    <span onclick="wrong()">❤️‍🩹</span>
     <span onclick="correct()">🫀</span>
-    <span onclick="wrong()">🤍</span>
+    <span onclick="wrong()">💝</span>
   </div>
 </div>
 
-<!-- PAGE 8 GIFT -->
-<div class="card" id="p7" style="display:none;">
+<!-- GIFT -->
+<div class="card" id="p8" style="display:none;">
   <h1>One Last Thing 🎁</h1>
 
-  <div id="gift" class="gift">🎁</div>
+  <div id="giftBox" class="gift">🎁</div>
 
   <button onclick="openGift()">I Love You Nachoo 💖</button>
 
-  <p id="giftText" style="display:none;margin-top:20px;">
-    Go and check your bag 💝
-  </p>
+  <div id="giftText" style="display:none;margin-top:20px;color:white;font-size:17px;">
+    💝 Go and check your bag 💝
+  </div>
 </div>
 
 <script>
-function show(id){
-  document.querySelectorAll(".card").forEach(c=>{
-    c.style.display="none";
-  });
-  document.getElementById(id).style.display="block";
+function go(n){
+  document.getElementById("p"+n).style.display="none";
+  document.getElementById("p"+(n+1)).style.display="block";
 }
 
 function unlock(){
   if(document.getElementById("pass").value==="Ajucha"){
-    show("p3");
+    document.getElementById("p2").style.display="none";
+    document.getElementById("p3").style.display="block";
     document.getElementById("music").volume=0.5;
     document.getElementById("music").play();
   } else {
@@ -210,13 +213,13 @@ function unlock(){
 
 function checkDate(){
   if(
-    document.getElementById("day").value=="11" &&
-    document.getElementById("month").value=="01" &&
-    document.getElementById("year").value=="2026"
+    day.value=="11" &&
+    month.value=="01" &&
+    year.value=="2026"
   ){
-    show("p5");
+    go(4);
   } else {
-    alert("Try again… your heart knows it 🤍");
+    alert("Your heart knows the date 🤍");
   }
 }
 
@@ -225,25 +228,27 @@ function wrong(){
 }
 
 function correct(){
-  show("p7");
+  go(7);
 }
 
 function openGift(){
-  document.getElementById("gift").innerHTML="🎀";
-  document.getElementById("gift").style.transform="scale(1.3) rotate(10deg)";
+  const gift=document.getElementById("giftBox");
+  gift.innerHTML="🎀";
+  gift.classList.add("open");
+
   setTimeout(()=>{
     document.getElementById("giftText").style.display="block";
   },700);
 }
 
-/* white love rain */
+/* LOVE RAIN */
 setInterval(()=>{
-  const l=document.createElement("div");
-  l.className="love";
-  l.innerHTML="🤍";
-  l.style.left=Math.random()*100+"vw";
-  document.body.appendChild(l);
-  setTimeout(()=>l.remove(),7000);
+  let h=document.createElement("div");
+  h.className="love";
+  h.innerHTML="🤍";
+  h.style.left=Math.random()*100+"vw";
+  document.body.appendChild(h);
+  setTimeout(()=>h.remove(),8000);
 },700);
 </script>
 

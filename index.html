@@ -2,9 +2,10 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>For Nachoo 💖</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>For You ❤️</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Poppins:wght@300;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Poppins&display=swap" rel="stylesheet">
 
 <style>
 body{
@@ -20,151 +21,180 @@ body{
 }
 
 .card{
-  background:rgba(255,255,255,0.15);
+  background:rgba(255,255,255,.25);
   backdrop-filter:blur(10px);
-  padding:30px;
+  padding:26px;
   border-radius:25px;
-  width:85%;
-  max-width:350px;
-  box-shadow:0 0 25px rgba(255,0,80,0.4);
-  animation:fade 2s;
+  width:88%;
+  max-width:360px;
+  box-shadow:0 0 30px rgba(255,80,120,.45);
+  animation:fade 1s ease;
 }
 
 h1{
   font-family:'Great Vibes',cursive;
-  font-size:36px;
-  color:#fff;
+  font-size:38px;
+  color:white;
 }
 
 p{
   color:white;
-  font-size:18px;
-  margin-top:15px;
+  font-size:16px;
+  margin-top:12px;
 }
 
-input{
-  padding:12px;
-  width:80%;
-  border:none;
-  border-radius:20px;
+img{
+  width:100%;
+  border-radius:22px;
   margin-top:15px;
-  font-size:16px;
-  text-align:center;
+  box-shadow:0 0 25px rgba(255,80,120,.7);
 }
 
 button{
-  margin-top:20px;
+  margin-top:18px;
   padding:12px 30px;
   border:none;
   border-radius:30px;
   background:#ff4d6d;
   color:white;
   font-size:16px;
-  cursor:pointer;
-  transition:0.3s;
 }
 
-button:hover{
-  transform:scale(1.05);
-  background:#ff1f4d;
-}
-
-img{
-  width:100%;
-  border-radius:20px;
-  margin-top:15px;
-  box-shadow:0 0 20px rgba(255,0,80,0.5);
+input{
+  padding:12px;
+  border-radius:25px;
+  border:none;
+  width:80%;
+  text-align:center;
+  font-size:16px;
 }
 
 @keyframes fade{
-  from{opacity:0;transform:scale(0.9);}
-  to{opacity:1;transform:scale(1);}
+  from{opacity:0;transform:scale(.9)}
+  to{opacity:1;transform:scale(1)}
 }
 
-.heart{
+/* ROSE PETALS */
+.petal{
   position:fixed;
-  color:#ff2f6f;
-  font-size:20px;
-  animation:fall 6s linear infinite;
+  top:-10%;
+  font-size:22px;
+  animation:fall 8s linear infinite;
 }
 
 @keyframes fall{
-  0%{top:-10%;opacity:1;}
-  100%{top:110%;opacity:0;}
+  to{transform:translateY(120vh) rotate(360deg)}
+}
+
+/* GIFT */
+.gift{
+  font-size:70px;
+  animation:shake 1s infinite;
+}
+
+@keyframes shake{
+  0%{transform:rotate(0deg)}
+  25%{transform:rotate(6deg)}
+  50%{transform:rotate(-6deg)}
+  100%{transform:rotate(0deg)}
 }
 </style>
 </head>
 
 <body>
 
-<audio autoplay loop>
-  <source src="https://dl.dropboxusercontent.com/scl/fi/3hzh9x7v8u3x7u9jv6v0a/jvke-her.mp3?rlkey=xyz" type="audio/mpeg">
+<audio id="music" loop>
+  <source src="music.mp3" type="audio/mpeg">
 </audio>
 
-<div class="card" id="box">
+<div class="card" id="p1">
   <h1>Hey Nachoo 💕</h1>
-  <p>You have a special name for me…<br>only you know it 🤍</p>
-  <input type="password" id="pass" placeholder="Enter it here">
+  <p>I made something special for you 🤍</p>
+  <button onclick="go2()">Continue 💗</button>
+</div>
+
+<div class="card" id="p2" style="display:none;">
+  <h1>One little thing…</h1>
+  <p>You have a special name for me 🤍</p>
+  <input id="pass" placeholder="Type it here">
   <br>
-  <button onclick="check()">Unlock 💗</button>
+  <button onclick="unlock()">Unlock 💖</button>
+</div>
+
+<div class="card" id="story" style="display:none;">
+  <h1 id="title"></h1>
+  <img id="photo">
+  <p id="text"></p>
+  <button onclick="next()">Next ✨</button>
 </div>
 
 <script>
-let step=0;
+const password="Ajucha";
 
-function check(){
-  let p=document.getElementById("pass").value;
-  if(p==="Ajucha"){
-    next();
-  }else{
-    alert("Hmm… try again 🤍");
-  }
+const slides=[
+ {t:"My Favorite Smile 💕",p:"photo1.jpg",m:"Every time you smile, my heart feels calm 🤍"},
+ {t:"Every Moment With You ✨",p:"photo2.jpg",m:"Even simple moments become beautiful with you 💗"},
+ {t:"My Safe Place ❤️",p:"photo3.jpg",m:"You are my peace and comfort 🫶"},
+ {t:"One Last Thing 🎁",p:"",m:"Go and check your bag now 💝"}
+];
+
+let i=0;
+
+function go2(){
+ document.getElementById("p1").style.display="none";
+ document.getElementById("p2").style.display="block";
+}
+
+function unlock(){
+ if(document.getElementById("pass").value===password){
+   document.getElementById("p2").style.display="none";
+   document.getElementById("story").style.display="block";
+   document.getElementById("music").volume=0.5;
+   document.getElementById("music").play();
+   show();
+ }else{
+   alert("Say it softly 🤍");
+ }
+}
+
+function typeText(el, text){
+ el.innerHTML="";
+ let i=0;
+ let timer=setInterval(()=>{
+   el.innerHTML+=text.charAt(i);
+   i++;
+   if(i>=text.length) clearInterval(timer);
+ },40);
+}
+
+function show(){
+ document.getElementById("title").innerHTML=slides[i].t;
+ if(slides[i].p!==""){
+   document.getElementById("photo").src=slides[i].p;
+   document.getElementById("photo").style.display="block";
+ }else{
+   document.getElementById("photo").style.display="none";
+ }
+ typeText(document.getElementById("text"), slides[i].m);
+
+ if(slides[i].t.includes("Last")){
+   document.getElementById("photo").insertAdjacentHTML("beforebegin","<div class='gift'>🎁</div>");
+ }
 }
 
 function next(){
-  const box=document.getElementById("box");
-  step++;
-
-  if(step===1){
-    box.innerHTML=`
-    <h1>My Favorite Smile 💞</h1>
-    <img src="photo1.jpg">
-    <button onclick="next()">Next ✨</button>
-    `;
-  }
-
-  else if(step===2){
-    box.innerHTML=`
-    <h1>Every Moment With You 💖</h1>
-    <img src="photo2.jpg">
-    <button onclick="next()">Next 🌸</button>
-    `;
-  }
-
-  else if(step===3){
-    box.innerHTML=`
-    <h1>My Heart Feels Safe With You ❤️</h1>
-    <img src="photo3.jpg">
-    <button onclick="next()">Next 🎁</button>
-    `;
-  }
-
-  else{
-    box.innerHTML=`
-    <h1>One Last Thing… 🎁</h1>
-    <p>Go and check your bag now 💝</p>
-    `;
-  }
+ i++;
+ if(i<slides.length) show();
 }
 
-for(let i=0;i<30;i++){
-  let h=document.createElement("div");
-  h.className="heart";
-  h.innerHTML="❤";
-  h.style.left=Math.random()*100+"vw";
-  h.style.animationDuration=(3+Math.random()*4)+"s";
-  document.body.appendChild(h);
-}
+setInterval(()=>{
+ let p=document.createElement("div");
+ p.className="petal";
+ p.innerHTML="🌸";
+ p.style.left=Math.random()*100+"vw";
+ document.body.appendChild(p);
+ setTimeout(()=>p.remove(),8000);
+},600);
 </script>
 
 </body>

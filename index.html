@@ -86,21 +86,28 @@ input{
   transition:.8s;
 }
 
+/* 🌹 ROSE PETAL RAIN */
+.petal{
+  position:fixed;
+  top:-10%;
+  width:25px;
+  opacity:0.9;
+  pointer-events:none;
+  animation:petalFall linear infinite;
+}
+
+@keyframes petalFall{
+  0%{
+    transform:translateY(-10vh) rotate(0deg);
+  }
+  100%{
+    transform:translateY(120vh) rotate(360deg);
+  }
+}
+
 @keyframes fade{
   from{opacity:0;transform:scale(.9)}
   to{opacity:1;transform:scale(1)}
-}
-
-/* LOVE RAIN */
-.heart{
-  position:fixed;
-  top:-10%;
-  font-size:22px;
-  animation:fall 8s linear infinite;
-}
-
-@keyframes fall{
-  to{transform:translateY(120vh)}
 }
 </style>
 </head>
@@ -118,7 +125,7 @@ input{
   <button onclick="go(1)">Continue 💗</button>
 </div>
 
-<!-- PAGE 2 PASSWORD -->
+<!-- PASSWORD -->
 <div class="card" id="p2" style="display:none;">
   <h1>One little thing…</h1>
   <p>You have a special name for me 🤍</p>
@@ -156,7 +163,7 @@ input{
   <button onclick="go(5)">Next ✨</button>
 </div>
 
-<!-- HEART CHOICE -->
+<!-- HEART -->
 <div class="card" id="p6" style="display:none;">
   <h1>One Heart Is Mine 🤍</h1>
   <p>Can you feel it?</p>
@@ -213,19 +220,16 @@ function unlock(){
   if(document.getElementById("pass").value==="Ajucha"){
     document.getElementById("p2").style.display="none";
     document.getElementById("p3").style.display="block";
-    document.getElementById("music").volume=0.6;
-    document.getElementById("music").play();
+    const music=document.getElementById("music");
+    music.volume=0.6;
+    music.play();
   } else {
     alert("Say it softly 🤍");
   }
 }
 
 function checkDate(){
-  if(
-    day.value=="11" &&
-    month.value=="01" &&
-    year.value=="2026"
-  ){
+  if(day.value=="11" && month.value=="01" && year.value=="2026"){
     go(4);
   } else {
     alert("Your heart remembers 🤍");
@@ -249,7 +253,7 @@ function openGift(){
   const music=document.getElementById("music");
   let v=music.volume;
 
-  let fade=setInterval(()=>{
+  const fade=setInterval(()=>{
     v-=0.05;
     if(v<=0){
       clearInterval(fade);
@@ -265,15 +269,22 @@ function openGift(){
   },700);
 }
 
-/* LOVE RAIN */
+/* 🌹 ROSE PETAL RAIN */
 setInterval(()=>{
-  const h=document.createElement("div");
-  h.className="heart";
-  h.innerHTML="🩷";
-  h.style.left=Math.random()*100+"vw";
-  document.body.appendChild(h);
-  setTimeout(()=>h.remove(),8000);
-},600);
+  const petal=document.createElement("img");
+  petal.src="petal.png";
+  petal.className="petal";
+
+  petal.style.left=Math.random()*100+"vw";
+  petal.style.animationDuration=(6+Math.random()*6)+"s";
+  petal.style.width=(18+Math.random()*25)+"px";
+
+  document.body.appendChild(petal);
+
+  setTimeout(()=>{
+    petal.remove();
+  },12000);
+},700);
 </script>
 
 </body>

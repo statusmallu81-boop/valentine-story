@@ -70,6 +70,25 @@ input{
   font-size:16px;
 }
 
+.heart{
+  position:fixed;
+  top:-10%;
+  font-size:20px;
+  animation:fall linear infinite;
+  opacity:0.8;
+  pointer-events:none;
+}
+
+@keyframes fall{
+  0%{transform:translateY(-10vh)}
+  100%{transform:translateY(120vh)}
+}
+
+@keyframes fade{
+  from{opacity:0;transform:scale(.9)}
+  to{opacity:1;transform:scale(1)}
+}
+
 .heartChoice span{
   font-size:45px;
   margin:15px;
@@ -84,30 +103,6 @@ input{
 .gift{
   font-size:90px;
   transition:.8s;
-}
-
-/* 🌹 ROSE PETAL RAIN */
-.petal{
-  position:fixed;
-  top:-10%;
-  width:25px;
-  opacity:0.9;
-  pointer-events:none;
-  animation:petalFall linear infinite;
-}
-
-@keyframes petalFall{
-  0%{
-    transform:translateY(-10vh) rotate(0deg);
-  }
-  100%{
-    transform:translateY(120vh) rotate(360deg);
-  }
-}
-
-@keyframes fade{
-  from{opacity:0;transform:scale(.9)}
-  to{opacity:1;transform:scale(1)}
 }
 </style>
 </head>
@@ -236,13 +231,8 @@ function checkDate(){
   }
 }
 
-function wrong(){
-  alert("Feel again 🤍");
-}
-
-function correct(){
-  go(6);
-}
+function wrong(){ alert("Feel again 🤍"); }
+function correct(){ go(6); }
 
 function loveYes(){
   document.getElementById("loveReply").style.display="block";
@@ -252,7 +242,6 @@ function loveYes(){
 function openGift(){
   const music=document.getElementById("music");
   let v=music.volume;
-
   const fade=setInterval(()=>{
     v-=0.05;
     if(v<=0){
@@ -269,23 +258,17 @@ function openGift(){
   },700);
 }
 
-/* 🌹 ROSE PETAL RAIN */
+/* 🤍 WHITE HEART RAIN */
 setInterval(()=>{
-  const petal=document.createElement("img");
-  petal.src="petal.png";
-  petal.className="petal";
-
-  petal.style.left=Math.random()*100+"vw";
-  petal.style.animationDuration=(6+Math.random()*6)+"s";
-  petal.style.width=(18+Math.random()*25)+"px";
-
-  document.body.appendChild(petal);
-
-  setTimeout(()=>{
-    petal.remove();
-  },12000);
-},700);
+  const h=document.createElement("div");
+  h.className="heart";
+  h.innerHTML="🤍";
+  h.style.left=Math.random()*100+"vw";
+  h.style.animationDuration=(6+Math.random()*6)+"s";
+  document.body.appendChild(h);
+  setTimeout(()=>h.remove(),12000);
+},600);
 </script>
 
 </body>
-</html>
+                 </html>

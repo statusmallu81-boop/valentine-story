@@ -1,281 +1,278 @@
-<!DOCTYPE html>  
-<html lang="en">  
-<head>  
-<meta charset="UTF-8">  
-<meta name="viewport" content="width=device-width, initial-scale=1.0">  
-<title>For Nachoo ❤️</title>  
-  
-<link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Poppins&display=swap" rel="stylesheet">  
-  
-<style>  
-body{  
-  margin:0;  
-  font-family:'Poppins',sans-serif;  
-  background:linear-gradient(135deg,#ff9a9e,#fad0c4);  
-  height:100vh;  
-  display:flex;  
-  justify-content:center;  
-  align-items:center;  
-  overflow:hidden;  
-  text-align:center;  
-}  
-  
-.card{  
-  background:rgba(255,255,255,.25);  
-  backdrop-filter:blur(12px);  
-  padding:26px;  
-  border-radius:25px;  
-  width:90%;  
-  max-width:370px;  
-  box-shadow:0 0 30px rgba(255,80,120,.45);  
-  animation:fade 1s ease;  
-}  
-  
-h1{  
-  font-family:'Great Vibes',cursive;  
-  font-size:36px;  
-  color:white;  
-}  
-  
-p{  
-  color:white;  
-  font-size:16px;  
-  margin-top:12px;  
-}  
-  
-img{  
-  width:100%;  
-  border-radius:22px;  
-  margin-top:15px;  
-  box-shadow:0 0 25px rgba(255,80,120,.7);  
-}  
-  
-button{  
-  margin-top:18px;  
-  padding:12px 30px;  
-  border:none;  
-  border-radius:30px;  
-  background:#ff4d6d;  
-  color:white;  
-  font-size:16px;  
-  cursor:pointer;  
-}  
-  
-input{  
-  padding:12px;  
-  border-radius:25px;  
-  border:none;  
-  width:70%;  
-  text-align:center;  
-  font-size:16px;  
-}  
-  
-.heartChoice span{  
-  font-size:45px;  
-  margin:15px;  
-  cursor:pointer;  
-  transition:.3s;  
-}  
-  
-.heartChoice span:hover{  
-  transform:scale(1.3);  
-}  
-  
-.gift{  
-  font-size:90px;  
-  transition:.8s;  
-}  
-  
-@keyframes fade{  
-  from{opacity:0;transform:scale(.9)}  
-  to{opacity:1;transform:scale(1)}  
-}  
-  
-/* LOVE RAIN */  
-.heart{  
-  position:fixed;  
-  top:-10%;  
-  font-size:22px;  
-  animation:fall 8s linear infinite;  
-}  
-  
-@keyframes fall{  
-  to{transform:translateY(120vh)}  
-}  
-</style>  
-</head>  
-  
-<body>  
-  
-<audio id="music" loop>  
-  <source src="music.mp3" type="audio/mpeg">  
-</audio>  
-  
-<!-- PAGE 1 -->  
-<div class="card" id="p1">  
-  <h1>Hey Nachoo 💕</h1>  
-  <p>I made something special for you 🤍</p>  
-  <button onclick="go(1)">Continue 💗</button>  
-</div>  
-  
-<!-- PAGE 2 PASSWORD -->  
-<div class="card" id="p2" style="display:none;">  
-  <h1>One little thing…</h1>  
-  <p>You have a special name for me 🤍</p>  
-  <input type="password" id="pass" placeholder="Type softly 🤍">  
-  <br>  
-  <button onclick="unlock()">Unlock ✨</button>  
-</div>  
-  
-<!-- PHOTO 1 -->  
-<div class="card" id="p3" style="display:none;">  
-  <h1>My Favorite Smile 🤍</h1>  
-  <img src="photo1.jpg">  
-  <p>Every time you smile, my heart feels calm 🤍</p>  
-  <button onclick="go(3)">Next ✨</button>  
-</div>  
-  
-<!-- DATE -->  
-<div class="card" id="p4" style="display:none;">  
-  <h1>A Sweet Memory 💗</h1>  
-  <p>Do you remember the day I proposed?</p>  
-  
-  <input id="day" placeholder="DD">  
-  <input id="month" placeholder="MM">  
-  <input id="year" placeholder="YYYY">  
-  
-  <br>  
-  <button onclick="checkDate()">Continue 💞</button>  
-</div>  
-  
-<!-- PHOTO 2 -->  
-<div class="card" id="p5" style="display:none;">  
-  <h1>Every Moment ✨</h1>  
-  <img src="photo2.jpg">  
-  <p>Even simple moments become beautiful with you 🤍</p>  
-  <button onclick="go(5)">Next ✨</button>  
-</div>  
-  
-<!-- HEART CHOICE -->  
-<div class="card" id="p6" style="display:none;">  
-  <h1>One Heart Is Mine 🤍</h1>  
-  <p>Can you feel it?</p>  
-  
-  <div class="heartChoice">  
-    <span onclick="wrong()">❤️‍🩹</span>  
-    <span onclick="correct()">🫀</span>  
-    <span onclick="wrong()">💝</span>  
-  </div>  
-</div>  
-  
-<!-- PHOTO 3 -->  
-<div class="card" id="p7" style="display:none;">  
-  <h1>Forever 🤍</h1>  
-  <img src="photo3.jpg">  
-  <p>You are mine forever… and always 🤍</p>  
-  <button onclick="go(7)">Next ✨</button>  
-</div>  
-  
-<!-- LOVE QUESTION -->  
-<div class="card" id="p8" style="display:none;">  
-  <h1>One small question 🤍</h1>  
-  <p>Do you love me? 🩷</p>  
-  
-  <button onclick="loveYes()">I love you Ajuchaa 💗</button>  
-  <br>  
-  <button onclick="go(8)" style="background:#ff7b9c;">Next ➡️</button>  
-  
-  <p id="loveReply" style="display:none;font-size:18px;margin-top:15px;">  
-    I love you too Nachooo 🩷  
-  </p>  
-</div>  
-  
-<!-- GIFT -->  
-<div class="card" id="p9" style="display:none;">  
-  <h1>One Last Thing 🎁</h1>  
-  
-  <div id="gift" class="gift">🎁</div>  
-  
-  <button onclick="openGift()">Open 💖</button>  
-  
-  <p id="giftText" style="display:none;font-size:18px;margin-top:20px;">  
-    Go and check your bag 💝  
-  </p>  
-</div>  
-  
-<script>  
-function go(n){  
-  document.getElementById("p"+n).style.display="none";  
-  document.getElementById("p"+(n+1)).style.display="block";  
-}  
-  
-function unlock(){  
-  if(document.getElementById("pass").value==="Ajucha"){  
-    document.getElementById("p2").style.display="none";  
-    document.getElementById("p3").style.display="block";  
-    document.getElementById("music").volume=0.6;  
-    document.getElementById("music").play();  
-  } else {  
-    alert("Say it softly 🤍");  
-  }  
-}  
-  
-function checkDate(){  
-  if(  
-    day.value=="11" &&  
-    month.value=="01" &&  
-    year.value=="2026"  
-  ){  
-    go(4);  
-  } else {  
-    alert("Your heart remembers 🤍");  
-  }  
-}  
-  
-function wrong(){  
-  alert("Feel again 🤍");  
-}  
-  
-function correct(){  
-  go(6);  
-}  
-  
-function loveYes(){  
-  document.getElementById("loveReply").style.display="block";  
-  setTimeout(()=>{ go(8); },1500);  
-}  
-  
-function openGift(){  
-  const music=document.getElementById("music");  
-  let v=music.volume;  
-  
-  let fade=setInterval(()=>{  
-    v-=0.05;  
-    if(v<=0){  
-      clearInterval(fade);  
-      music.pause();  
-    }  
-    music.volume=v;  
-  },120);  
-  
-  document.getElementById("gift").innerHTML="🎀";  
-  document.getElementById("gift").style.transform="scale(1.3) rotate(10deg)";  
-  setTimeout(()=>{  
-    document.getElementById("giftText").style.display="block";  
-  },700);  
-}  
-  
-/* LOVE RAIN */  
-setInterval(()=>{  
-  const h=document.createElement("div");  
-  h.className="heart";  
-  h.innerHTML="🤍";  
-  h.style.left=Math.random()*100+"vw";  
-  document.body.appendChild(h);  
-  setTimeout(()=>h.remove(),8000);  
-},600);  
-</script>  
-  
-</body>  
-</html>  
- 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>For Nachoo ❤️</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Poppins&display=swap" rel="stylesheet">
+
+<style>
+body{
+  margin:0;
+  font-family:'Poppins',sans-serif;
+  background:linear-gradient(135deg,#ff9a9e,#fad0c4);
+  height:100vh;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  overflow:hidden;
+  text-align:center;
+}
+
+.card{
+  background:rgba(255,255,255,.25);
+  backdrop-filter:blur(12px);
+  padding:26px;
+  border-radius:25px;
+  width:90%;
+  max-width:370px;
+  box-shadow:0 0 30px rgba(255,80,120,.45);
+  animation:fade 1s ease;
+}
+
+h1{
+  font-family:'Great Vibes',cursive;
+  font-size:36px;
+  color:white;
+}
+
+p{
+  color:white;
+  font-size:16px;
+  margin-top:12px;
+}
+
+img{
+  width:100%;
+  border-radius:22px;
+  margin-top:15px;
+  box-shadow:0 0 25px rgba(255,80,120,.7);
+}
+
+button{
+  margin-top:18px;
+  padding:12px 30px;
+  border:none;
+  border-radius:30px;
+  background:#ff4d6d;
+  color:white;
+  font-size:16px;
+  cursor:pointer;
+}
+
+input{
+  padding:12px;
+  border-radius:25px;
+  border:none;
+  width:70%;
+  text-align:center;
+  font-size:16px;
+}
+
+.heartChoice span{
+  font-size:45px;
+  margin:15px;
+  cursor:pointer;
+  transition:.3s;
+}
+
+.heartChoice span:hover{
+  transform:scale(1.3);
+}
+
+.gift{
+  font-size:90px;
+  transition:.8s;
+}
+
+/* ANSWER EMOJI */
+.answerEmoji{
+  position:fixed;
+  font-size:55px;
+  animation:answerPop 2s ease forwards;
+  z-index:9999;
+}
+
+@keyframes answerPop{
+  0%{transform:scale(.2);opacity:0;}
+  30%{transform:scale(1.5);opacity:1;}
+  70%{transform:scale(1);}
+  100%{transform:scale(.5);opacity:0;top:-10%;}
+}
+
+@keyframes fade{
+  from{opacity:0;transform:scale(.9)}
+  to{opacity:1;transform:scale(1)}
+}
+
+/* LOVE RAIN */
+.heart{
+  position:fixed;
+  top:-10%;
+  font-size:22px;
+  animation:fall 8s linear infinite;
+}
+
+@keyframes fall{
+  to{transform:translateY(120vh)}
+}
+</style>
+</head>
+
+<body>
+
+<audio id="music" loop>
+  <source src="music.mp3" type="audio/mpeg">
+</audio>
+
+<!-- PAGE 1 -->
+<div class="card" id="p1">
+  <h1>Hey Nachoo 💕</h1>
+  <p>I made something special for you 🤍</p>
+  <button onclick="go(1)">Continue 💗</button>
+</div>
+
+<!-- PAGE 2 -->
+<div class="card" id="p2" style="display:none;">
+  <h1>One little thing…</h1>
+  <p>You have a special name for me 🫣🤍</p>
+  <input type="password" id="pass" placeholder="Type softly 🤍">
+  <br>
+  <button onclick="unlock()">Unlock ✨</button>
+</div>
+
+<!-- PHOTO 1 -->
+<div class="card" id="p3" style="display:none;">
+  <h1>My Favorite Smile 🤍</h1>
+  <img src="photo1.jpg">
+  <p>Every time you smile, my heart feels calm 🤍</p>
+  <button onclick="go(3)">Next ✨</button>
+</div>
+
+<!-- DATE -->
+<div class="card" id="p4" style="display:none;">
+  <h1>A Sweet Memory 💗</h1>
+  <p>Do you remember the day I proposed? 🥺🤍</p>
+
+  <input id="day" placeholder="DD">
+  <input id="month" placeholder="MM">
+  <input id="year" placeholder="YYYY">
+
+  <br>
+  <button onclick="checkDate()">Continue 💞</button>
+</div>
+
+<!-- PHOTO 2 -->
+<div class="card" id="p5" style="display:none;">
+  <h1>Every Moment ✨</h1>
+  <img src="photo2.jpg">
+  <p>Even simple moments become beautiful with you 🤍</p>
+  <button onclick="go(5)">Next ✨</button>
+</div>
+
+<!-- HEART -->
+<div class="card" id="p6" style="display:none;">
+  <h1>One Heart Is Mine 🤍</h1>
+  <p>Can you feel it? 😌🤍</p>
+
+  <div class="heartChoice">
+    <span onclick="wrong()">❤️‍🩹</span>
+    <span onclick="correct(); answerEmoji('✨')">🫀</span>
+    <span onclick="wrong()">💝</span>
+  </div>
+</div>
+
+<!-- PHOTO 3 -->
+<div class="card" id="p7" style="display:none;">
+  <h1>Forever 🤍</h1>
+  <img src="photo3.jpg">
+  <p>You are mine forever… and always 🤍</p>
+  <button onclick="go(7)">Next ✨</button>
+</div>
+
+<!-- LOVE QUESTION -->
+<div class="card" id="p8" style="display:none;">
+  <h1>One small question 🤍</h1>
+  <p>Do you love me? 🥺🤍</p>
+
+  <button onclick="loveYes(); answerEmoji('🫶')">
+    I love you Ajuchaa 💗
+  </button>
+
+  <p id="loveReply" style="display:none;font-size:18px;margin-top:15px;">
+    I love you too Nachooo 🩷
+  </p>
+</div>
+
+<!-- GIFT -->
+<div class="card" id="p9" style="display:none;">
+  <h1>One Last Thing 🎁</h1>
+
+  <div id="gift" class="gift">🎁</div>
+
+  <button onclick="openGift()">Open 💖</button>
+
+  <p id="giftText" style="display:none;font-size:18px;margin-top:20px;">
+    Go and check your bag 💝
+  </p>
+</div>
+
+<script>
+function go(n){
+  document.getElementById("p"+n).style.display="none";
+  document.getElementById("p"+(n+1)).style.display="block";
+}
+
+function unlock(){
+  if(pass.value==="Ajucha"){
+    p2.style.display="none";
+    p3.style.display="block";
+    music.volume=0.6;
+    music.play();
+  } else alert("Say it softly 🤍");
+}
+
+function checkDate(){
+  if(day.value=="11" && month.value=="01" && year.value=="2026"){
+    go(4);
+  } else alert("Your heart remembers 🤍");
+}
+
+function wrong(){ alert("Feel again 🤍"); }
+function correct(){ go(6); }
+
+function loveYes(){
+  loveReply.style.display="block";
+  setTimeout(()=>{ go(8); },1500);
+}
+
+function answerEmoji(e){
+  const x=document.createElement("div");
+  x.className="answerEmoji";
+  x.innerHTML=e;
+  x.style.left="45vw";
+  x.style.top="55%";
+  document.body.appendChild(x);
+  setTimeout(()=>x.remove(),2000);
+}
+
+function openGift(){
+  gift.innerHTML="🎀";
+  gift.style.transform="scale(1.3) rotate(10deg)";
+  setTimeout(()=>giftText.style.display="block",700);
+}
+
+/* LOVE RAIN */
+setInterval(()=>{
+  const h=document.createElement("div");
+  h.className="heart";
+  h.innerHTML="🤍";
+  h.style.left=Math.random()*100+"vw";
+  document.body.appendChild(h);
+  setTimeout(()=>h.remove(),8000);
+},600);
+</script>
+
+</body>
+  </html>

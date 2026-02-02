@@ -20,10 +20,8 @@ body{
   text-align:center;
 }
 
-/* CARD ABOVE HEARTS */
+/* CARD */
 .card{
-  position:relative;
-  z-index:10;
   background:rgba(255,255,255,.25);
   backdrop-filter:blur(12px);
   padding:26px;
@@ -32,6 +30,8 @@ body{
   max-width:370px;
   box-shadow:0 0 30px rgba(255,80,120,.45);
   animation:fade 1s ease;
+  position:relative;
+  z-index:1;
 }
 
 h1{
@@ -94,18 +94,22 @@ input{
   to{opacity:1;transform:scale(1)}
 }
 
-/* ❤️ HEART RAIN BACKGROUND */
+/* FULL PAGE HEART RAIN */
 .heart{
   position:fixed;
   top:-10%;
-  font-size:22px;
-  opacity:0.4;
-  z-index:1;              /* BEHIND CARD */
-  animation:fall 10s linear infinite;
+  font-size:18px;
+  opacity:0.5;
+  animation:fall linear infinite;
+  z-index:0;
+  pointer-events:none;
 }
 
 @keyframes fall{
-  to{transform:translateY(120vh)}
+  to{
+    transform:translateY(120vh);
+    opacity:0;
+  }
 }
 </style>
 </head>
@@ -118,53 +122,51 @@ input{
 
 <!-- PAGE 1 -->
 <div class="card" id="p1">
-  <h1>Hey Nachoo 💕</h1>
-  <p>I made something special for you 🤍</p>
-  <button onclick="go(1)">Continue 💗</button>
+  <h1>Hey Nachoo</h1>
+  <p>I made something special for you</p>
+  <button onclick="go(1)">Continue</button>
 </div>
 
 <!-- PAGE 2 -->
 <div class="card" id="p2" style="display:none;">
   <h1>One little thing…</h1>
-  <p>You have a special name for me 🤍</p>
-  <input type="password" id="pass" placeholder="Type softly 🤍">
+  <p>You have a special name for me</p>
+  <input type="password" id="pass" placeholder="Type softly">
   <br>
-  <button onclick="unlock()">Unlock ✨</button>
+  <button onclick="unlock()">Unlock</button>
 </div>
 
 <!-- PHOTO 1 -->
 <div class="card" id="p3" style="display:none;">
-  <h1>My Favorite Smile 🤍</h1>
+  <h1>My Favorite Smile</h1>
   <img src="photo1.jpg">
-  <p>Every time you smile, my heart feels calm 🤍</p>
-  <button onclick="go(3)">Next ✨</button>
+  <p>Every time you smile, my heart feels calm</p>
+  <button onclick="go(3)">Next</button>
 </div>
 
 <!-- DATE -->
 <div class="card" id="p4" style="display:none;">
-  <h1>A Sweet Memory 💗</h1>
+  <h1>A Sweet Memory</h1>
   <p>Do you remember the day I proposed? 💍</p>
-
   <input id="day" placeholder="DD">
   <input id="month" placeholder="MM">
   <input id="year" placeholder="YYYY">
   <br>
-  <button onclick="checkDate()">Continue 💞</button>
+  <button onclick="checkDate()">Continue</button>
 </div>
 
 <!-- PHOTO 2 -->
 <div class="card" id="p5" style="display:none;">
-  <h1>Every Moment ✨</h1>
+  <h1>Every Moment</h1>
   <img src="photo2.jpg">
-  <p>Even simple moments become beautiful with you 🤍</p>
-  <button onclick="go(5)">Next ✨</button>
+  <p>Even simple moments become beautiful with you</p>
+  <button onclick="go(5)">Next</button>
 </div>
 
 <!-- HEART -->
 <div class="card" id="p6" style="display:none;">
-  <h1>One Heart Is Mine 🤍</h1>
+  <h1>One Heart Is Mine</h1>
   <p>Can you feel it?</p>
-
   <div class="heartChoice">
     <span onclick="wrong()">❤️‍🩹</span>
     <span onclick="correct()">🫀</span>
@@ -174,38 +176,29 @@ input{
 
 <!-- PHOTO 3 -->
 <div class="card" id="p7" style="display:none;">
-  <h1>Forever 🤍</h1>
+  <h1>Forever</h1>
   <img src="photo3.jpg">
-  <p>You are mine forever… and always 🤍</p>
-  <button onclick="go(7)">Next ✨</button>
+  <p>You are mine forever… and always</p>
+  <button onclick="go(7)">Next</button>
 </div>
 
-<!-- LOVE QUESTION -->
+<!-- LOVE -->
 <div class="card" id="p8" style="display:none;">
-  <h1>One small question 🤍</h1>
-  <p>Do you love me? 🩷</p>
-
-  <button onclick="loveYes()">I love you Ajuchaa 💗</button>
-  <br>
-  <button onclick="thalamandaa()" style="background:#ff7b9c;">
-    Thalamandaa 😹
-  </button>
-
-  <p id="loveReply" style="display:none;font-size:18px;margin-top:15px;">
-    I love you too Nachooo 🩷
+  <h1>One small question</h1>
+  <p>Do you love me?</p>
+  <button onclick="loveYes()">I love you Ajuchaaa</button>
+  <p id="loveReply" style="display:none;margin-top:15px;">
+    I love you too
   </p>
 </div>
 
 <!-- GIFT -->
 <div class="card" id="p9" style="display:none;">
-  <h1>One Last Thing 🎁</h1>
-
+  <h1>One Last Thing</h1>
   <div id="gift" class="gift">🎁</div>
-
-  <button onclick="openGift()">Open 💖</button>
-
-  <p id="giftText" style="display:none;font-size:18px;margin-top:20px;">
-    Go and check your bag 💝
+  <button onclick="openGift()">Open</button>
+  <p id="giftText" style="display:none;margin-top:20px;">
+    Go and check your bag
   </p>
 </div>
 
@@ -221,25 +214,21 @@ function unlock(){
     p3.style.display="block";
     music.volume=0.6;
     music.play();
-  } else alert("Say it softly 🤍");
+  } else alert("Say it softly");
 }
 
 function checkDate(){
   if(day.value=="11" && month.value=="01" && year.value=="2026"){
     go(4);
-  } else alert("Your heart remembers 🤍");
+  } else alert("Your heart remembers");
 }
 
-function wrong(){ alert("Feel again 🤍"); }
+function wrong(){ alert("Feel again"); }
 function correct(){ go(6); }
 
 function loveYes(){
   loveReply.style.display="block";
   setTimeout(()=>{ go(8); },1500);
-}
-
-function thalamandaa(){
-  alert("Nokiii irinno… ippo kittum 😹");
 }
 
 function openGift(){
@@ -248,16 +237,17 @@ function openGift(){
   setTimeout(()=>giftText.style.display="block",700);
 }
 
-/* HEARTS BACKGROUND */
+/* FULL PAGE HEART RAIN */
 setInterval(()=>{
-  const h=document.createElement("div");
-  h.className="heart";
-  h.innerHTML="🤍";
-  h.style.left=Math.random()*100+"vw";
-  document.body.appendChild(h);
-  setTimeout(()=>h.remove(),10000);
-},700);
+  const heart=document.createElement("div");
+  heart.className="heart";
+  heart.innerHTML="❤";
+  heart.style.left=Math.random()*100+"vw";
+  heart.style.animationDuration=(6+Math.random()*4)+"s";
+  document.body.appendChild(heart);
+  setTimeout(()=>heart.remove(),10000);
+},400);
 </script>
 
 </body>
-</html>
+    </html>

@@ -20,7 +20,7 @@ body{
   text-align:center;
 }
 
-/* CARD ABOVE HEARTS */
+/* PREMIUM CARD */
 .card{
   position:relative;
   z-index:10;
@@ -30,7 +30,9 @@ body{
   border-radius:25px;
   width:90%;
   max-width:370px;
-  box-shadow:0 0 30px rgba(255,80,120,.45);
+  box-shadow:
+    0 0 30px rgba(255,80,120,.45),
+    0 0 60px rgba(255,150,180,.25);
   animation:fade 1s ease;
 }
 
@@ -44,13 +46,15 @@ p{
   color:white;
   font-size:16px;
   margin-top:12px;
+  letter-spacing:.5px;
 }
 
+/* CINEMATIC IMAGE */
 img{
   width:100%;
   border-radius:22px;
   margin-top:15px;
-  box-shadow:0 0 25px rgba(255,80,120,.7);
+  box-shadow:0 10px 40px rgba(255,120,150,.45);
 }
 
 button{
@@ -94,18 +98,34 @@ input{
   to{opacity:1;transform:scale(1)}
 }
 
-/* ❤️ HEART RAIN BACKGROUND */
+/* PURE WHITE HEART RAIN */
 .heart{
   position:fixed;
   top:-10%;
-  font-size:22px;
-  opacity:0.4;
-  z-index:1;              /* BEHIND CARD */
+  font-size:20px;
+  color:white;
+  opacity:.9;
+  z-index:1;
   animation:fall 10s linear infinite;
+  text-shadow:0 0 8px rgba(255,255,255,.9);
 }
 
 @keyframes fall{
   to{transform:translateY(120vh)}
+}
+
+/* 🎬 CINEMATIC FADE */
+.fade-screen{
+  position:fixed;
+  top:0;
+  left:0;
+  width:100%;
+  height:100%;
+  background:black;
+  opacity:0;
+  z-index:9999;
+  pointer-events:none;
+  transition:opacity 1.2s ease;
 }
 </style>
 </head>
@@ -116,53 +136,56 @@ input{
   <source src="music.mp3" type="audio/mpeg">
 </audio>
 
+<!-- Fade Screen -->
+<div id="fadeScreen" class="fade-screen"></div>
+
 <!-- PAGE 1 -->
 <div class="card" id="p1">
-  <h1>Hey Nachoo 💕</h1>
+  <h1>Hey Nachoo</h1>
   <p>I made something special for you 🤍</p>
-  <button onclick="go(1)">Continue 💗</button>
+  <button onclick="go(1)">Continue</button>
 </div>
 
 <!-- PAGE 2 -->
 <div class="card" id="p2" style="display:none;">
   <h1>One little thing…</h1>
   <p>You have a special name for me 🤍</p>
-  <input type="password" id="pass" placeholder="Type softly 🤍">
+  <input type="password" id="pass" placeholder="Type softly">
   <br>
-  <button onclick="unlock()">Unlock ✨</button>
+  <button onclick="unlock()">Unlock</button>
 </div>
 
 <!-- PHOTO 1 -->
 <div class="card" id="p3" style="display:none;">
-  <h1>My Favorite Smile 🤍</h1>
+  <h1>My Favorite Smile</h1>
   <img src="photo1.jpg">
-  <p>Every time you smile, my heart feels calm 🤍</p>
-  <button onclick="go(3)">Next ✨</button>
+  <p>Every time you smile, my heart feels calm.</p>
+  <button onclick="go(3)">Next</button>
 </div>
 
 <!-- DATE -->
 <div class="card" id="p4" style="display:none;">
-  <h1>A Sweet Memory 💗</h1>
+  <h1>A Sweet Memory</h1>
   <p>Do you remember the day I proposed? 💍</p>
 
   <input id="day" placeholder="DD">
   <input id="month" placeholder="MM">
   <input id="year" placeholder="YYYY">
   <br>
-  <button onclick="checkDate()">Continue 💞</button>
+  <button onclick="checkDate()">Continue</button>
 </div>
 
-<!-- PHOTO 2 -->
+<!-- HAND HOLD -->
 <div class="card" id="p5" style="display:none;">
-  <h1>Every Moment ✨</h1>
+  <h1>Every Moment</h1>
   <img src="photo2.jpg">
-  <p>Even simple moments become beautiful with you 🤍</p>
-  <button onclick="go(5)">Next ✨</button>
+  <p>I want to hold your hand… forever.</p>
+  <button onclick="go(5)">Next</button>
 </div>
 
 <!-- HEART -->
 <div class="card" id="p6" style="display:none;">
-  <h1>One Heart Is Mine 🤍</h1>
+  <h1>One Heart Is Mine</h1>
   <p>Can you feel it?</p>
 
   <div class="heartChoice">
@@ -172,37 +195,37 @@ input{
   </div>
 </div>
 
-<!-- PHOTO 3 -->
+<!-- COUPLE -->
 <div class="card" id="p7" style="display:none;">
-  <h1>Forever 🤍</h1>
+  <h1>Us</h1>
   <img src="photo3.jpg">
-  <p>You are mine forever… and always 🤍</p>
-  <button onclick="go(7)">Next ✨</button>
+  <p>With you… I feel at home.</p>
+  <button onclick="go(7)">Next</button>
 </div>
 
 <!-- LOVE QUESTION -->
 <div class="card" id="p8" style="display:none;">
-  <h1>One small question 🤍</h1>
-  <p>Do you love me? 🩷</p>
+  <h1>One small question</h1>
+  <p>Are you happy… with me?</p>
 
-  <button onclick="loveYes()">I love you Ajuchaa 💗</button>
+  <button onclick="loveYes()">Yes… always 💗</button>
   <br>
   <button onclick="thalamandaa()" style="background:#ff7b9c;">
     Thalamandaa 😹
   </button>
 
   <p id="loveReply" style="display:none;font-size:18px;margin-top:15px;">
-    I love you too Nachooo 🩷
+    Your happiness is my favorite thing 🤍
   </p>
 </div>
 
 <!-- GIFT -->
 <div class="card" id="p9" style="display:none;">
-  <h1>One Last Thing 🎁</h1>
+  <h1>One Last Thing</h1>
 
   <div id="gift" class="gift">🎁</div>
 
-  <button onclick="openGift()">Open 💖</button>
+  <button onclick="openGift()">Open</button>
 
   <p id="giftText" style="display:none;font-size:18px;margin-top:20px;">
     Go and check your bag 💝
@@ -210,9 +233,24 @@ input{
 </div>
 
 <script>
+
 function go(n){
-  document.getElementById("p"+n).style.display="none";
-  document.getElementById("p"+(n+1)).style.display="block";
+
+  // 🎬 cinematic before gift
+  if(n == 8){
+    const fade = document.getElementById("fadeScreen");
+    fade.style.opacity="1";
+
+    setTimeout(()=>{
+      document.getElementById("p"+n).style.display="none";
+      document.getElementById("p"+(n+1)).style.display="block";
+      fade.style.opacity="0";
+    },1500);
+
+  }else{
+    document.getElementById("p"+n).style.display="none";
+    document.getElementById("p"+(n+1)).style.display="block";
+  }
 }
 
 function unlock(){
@@ -248,15 +286,16 @@ function openGift(){
   setTimeout(()=>giftText.style.display="block",700);
 }
 
-/* HEARTS BACKGROUND */
+/* HEART RAIN */
 setInterval(()=>{
   const h=document.createElement("div");
   h.className="heart";
-  h.innerHTML="🤍";
+  h.innerHTML="❤";
   h.style.left=Math.random()*100+"vw";
   document.body.appendChild(h);
   setTimeout(()=>h.remove(),10000);
-},700);
+},900);
+
 </script>
 
 </body>

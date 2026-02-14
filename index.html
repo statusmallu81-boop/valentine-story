@@ -91,11 +91,15 @@ input{
 .heart{
   position:fixed;
   top:-10%;
-  font-size:20px;
+  font-size:22px;
   color:white;
-  opacity:.85;
+  opacity:.9;
   z-index:1;
-  animation:fall 10s linear infinite;
+  animation:fall 12s linear infinite;
+  text-shadow:
+    0 0 8px rgba(255,255,255,0.9),
+    0 0 16px rgba(255,182,193,0.8),
+    0 0 24px rgba(255,105,180,0.6);
 }
 
 @keyframes fall{
@@ -168,7 +172,6 @@ input{
   <button onclick="go(5)">Next</button>
 </div>
 
-<!-- NOW DIRECTLY TO US PAGE -->
 <div class="card" id="p6" style="display:none;">
   <h1>Us</h1>
   <img src="photo3.jpg">
@@ -251,10 +254,10 @@ setInterval(()=>{
   h.innerHTML="❤";
   h.style.left=Math.random()*100+"vw";
   document.body.appendChild(h);
-  setTimeout(()=>h.remove(),10000);
+  setTimeout(()=>h.remove(),12000);
 },1100);
 
 </script>
 
 </body>
-    </html>
+</html>

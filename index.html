@@ -95,7 +95,7 @@ input{
   color:white;
   opacity:.9;
   z-index:1;
-  animation:fall 12s linear infinite;
+  animation:fall 18s linear infinite;   /* SLOWER RAIN */
   text-shadow:
     0 0 8px rgba(255,255,255,0.9),
     0 0 16px rgba(255,182,193,0.8),
@@ -135,7 +135,7 @@ input{
 <div id="fadeScreen" class="fade-screen"></div>
 
 <div class="card" id="p1">
-  <h1>Hey Nachoo ❤️</h1>
+  <h1>Hey Nachoo 🤍</h1>
   <p>I made something special for you.</p>
   <button onclick="go(1)">Continue</button>
 </div>
@@ -254,8 +254,8 @@ setInterval(()=>{
   h.innerHTML="❤";
   h.style.left=Math.random()*100+"vw";
   document.body.appendChild(h);
-  setTimeout(()=>h.remove(),12000);
-},1100);
+  setTimeout(()=>h.remove(),18000);
+},1800);
 
 </script>
 

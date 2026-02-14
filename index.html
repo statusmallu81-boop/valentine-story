@@ -20,7 +20,6 @@ body{
   text-align:center;
 }
 
-/* CARD */
 .card{
   position:relative;
   z-index:10;
@@ -79,44 +78,6 @@ input{
   font-size:16px;
 }
 
-.heartChoice{
-  position:relative;
-}
-
-.heartChoice span{
-  font-size:45px;
-  margin:15px;
-  cursor:pointer;
-  transition:.3s;
-}
-
-.heartChoice span:hover{
-  transform:scale(1.3);
-}
-
-/* RUN AWAY */
-.run{
-  position:absolute;
-  transition:.35s ease;
-}
-
-/* ME GLOW */
-.meOption{
-  animation:meGlow 1.6s infinite alternate;
-}
-
-@keyframes meGlow{
-  from{
-    transform:scale(1);
-    text-shadow:0 0 5px rgba(255,255,255,.4);
-  }
-  to{
-    transform:scale(1.18);
-    text-shadow:0 0 18px rgba(255,255,255,.9);
-  }
-}
-
-/* GIFT */
 .gift{
   font-size:95px;
   margin-top:15px;
@@ -133,7 +94,6 @@ input{
   text-shadow:0 0 12px rgba(255,255,255,.6);
 }
 
-/* HEART RAIN */
 .heart{
   position:fixed;
   top:-10%;
@@ -142,7 +102,6 @@ input{
   opacity:.85;
   z-index:1;
   animation:fall 10s linear infinite;
-  text-shadow:0 0 10px rgba(255,255,255,.9);
 }
 
 @keyframes fall{
@@ -177,12 +136,14 @@ input{
 
 <div id="fadeScreen" class="fade-screen"></div>
 
+<!-- PAGE 1 -->
 <div class="card" id="p1">
   <h1>Hey Nachoo ❤️</h1>
   <p>I made something special for you.</p>
   <button onclick="go(1)">Continue</button>
 </div>
 
+<!-- PAGE 2 -->
 <div class="card" id="p2" style="display:none;">
   <h1>One little thing…</h1>
   <p>You have a special name for me.</p>
@@ -191,6 +152,7 @@ input{
   <button onclick="unlock()">Unlock</button>
 </div>
 
+<!-- PHOTO 1 -->
 <div class="card" id="p3" style="display:none;">
   <h1>My Favorite Smile</h1>
   <img src="photo1.jpg">
@@ -198,9 +160,10 @@ input{
   <button onclick="go(3)">Next</button>
 </div>
 
+<!-- DATE -->
 <div class="card" id="p4" style="display:none;">
   <h1>A Sweet Memory</h1>
-  <p>Do you remember the day I proposed? 💍</p>
+  <p>Do you remember the day I proposed?</p>
   <input id="day" placeholder="DD">
   <input id="month" placeholder="MM">
   <input id="year" placeholder="YYYY">
@@ -208,6 +171,7 @@ input{
   <button onclick="checkDate()">Continue</button>
 </div>
 
+<!-- HAND HOLD -->
 <div class="card" id="p5" style="display:none;">
   <h1>Every Moment</h1>
   <img src="photo2.jpg">
@@ -215,27 +179,16 @@ input{
   <button onclick="go(5)">Next</button>
 </div>
 
-<!-- UPDATED P6 -->
+<!-- COUPLE -->
 <div class="card" id="p6" style="display:none;">
-  <h1>Choose One ❤️</h1>
-  <p>If you could pick only one… what would you choose?</p>
-
-  <div class="heartChoice">
-    <span onclick="runAway(this)">🍫</span>
-    <span onclick="runAway(this)">🍦</span>
-    <span onclick="runAway(this)">🧸</span>
-    <span class="meOption" onclick="chooseMe()">🙋‍♂️</span>
-  </div>
-</div>
-
-<div class="card" id="p7" style="display:none;">
   <h1>Us</h1>
   <img src="photo3.jpg">
   <p>With you… I feel at home.</p>
-  <button onclick="go(7)">Next</button>
+  <button onclick="go(6)">Next</button>
 </div>
 
-<div class="card" id="p8" style="display:none;">
+<!-- LOVE QUESTION -->
+<div class="card" id="p7" style="display:none;">
   <h1>One small question</h1>
   <p>Are you happy… with me?</p>
   <button onclick="loveYes()">Yes… always ❤️</button>
@@ -246,30 +199,21 @@ input{
   </p>
 </div>
 
-<div class="card" id="p9" style="display:none;">
+<!-- GIFT PAGE -->
+<div class="card" id="p8" style="display:none;">
   <h1>For You</h1>
-  <h2 class="giftMoment" id="giftText">Don’t close this yet…</h2>
   <div id="gift" class="gift">🎁</div>
   <button onclick="openGift()">Open it</button>
+  <p id="giftText" class="giftMoment" style="display:none;">
+    There’s something waiting for you… in your bag ❤️
+  </p>
 </div>
 
 <script>
 
 function go(n){
-  if(n == 8){
-    const fade = document.getElementById("fadeScreen");
-    fade.style.opacity="1";
-
-    setTimeout(()=>{
-      document.getElementById("p"+n).style.display="none";
-      document.getElementById("p"+(n+1)).style.display="block";
-      fade.style.opacity="0";
-    },1500);
-
-  }else{
-    document.getElementById("p"+n).style.display="none";
-    document.getElementById("p"+(n+1)).style.display="block";
-  }
+  document.getElementById("p"+n).style.display="none";
+  document.getElementById("p"+(n+1)).style.display="block";
 }
 
 function unlock(){
@@ -287,49 +231,19 @@ function checkDate(){
   } else alert("Your heart remembers.");
 }
 
-function wrong(){ alert("Feel again."); }
-function correct(){ go(6); }
-
 function loveYes(){
   loveReply.style.display="block";
-  setTimeout(()=>{ go(8); },1500);
+  setTimeout(()=>{ go(7); },1500);
 }
 
 function thalamandaa(){
-  alert("Nokiii irinno… ippo kittum 😹");
-}
-
-/* RUN AWAY FUNCTION */
-function runAway(el){
-  el.classList.add("run");
-
-  const container = el.parentElement;
-
-  const maxX = container.offsetWidth - 50;
-  const maxY = 120;
-
-  const randomX = Math.random() * maxX;
-  const randomY = Math.random() * maxY;
-
-  el.style.left = randomX + "px";
-  el.style.top = randomY + "px";
-}
-
-function chooseMe(){
-  alert("I was hoping you'd choose me ❤️");
-  go(6);
+  alert("kayyum kayki irinno… ippo kittum 😹");
 }
 
 function openGift(){
-  const gift = document.getElementById("gift");
-  const text = document.getElementById("giftText");
-
   gift.innerHTML="🎀";
   gift.style.transform="scale(1.3)";
-
-  setTimeout(()=>{
-    text.innerHTML="There’s something waiting for you… in your bag ❤️";
-  },700);
+  setTimeout(()=>giftText.style.display="block",700);
 }
 
 /* HEART RAIN */
@@ -346,4 +260,3 @@ setInterval(()=>{
 
 </body>
 </html>
-```0
